@@ -83,7 +83,7 @@ const handleLogin=async(e)=>{
    e.preventDefault();
    dispatch(loginStart())
    try{
-  const res= await axios.post("https://youtube-bac.onrender.com/api/auth/signin",{name,password,email});
+  const res= await axios.post("/auth/signin",{name,password,email});
    const login=  dispatch(loginSuccess(res.data))
    if(login){
      alert('successfully login')
@@ -101,7 +101,7 @@ const submit= async(e)=>{
   e.preventDefault();
   try{
     if(name && email && password ){
-      var response=await axios.post(`https://youtube-bac.onrender.com/api/auth/signup`,{name,email,password})
+      var response=await axios.post(`/auth/signup`,{name,email,password})
       alert("you have registered successfully")
     }
    console.log(response.data)

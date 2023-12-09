@@ -16,7 +16,7 @@ const Home = ({type}) => {
 
   useEffect(()=>{
      const fetchVideo=async ()=>{
-      const res = await axios.get(`https://youtube-bac.onrender.com/api/video/${type}`)
+      const res = await axios.get(`/video/${type}`)
       setVideos(res.data)
     }
     fetchVideo()

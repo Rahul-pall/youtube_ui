@@ -15,7 +15,6 @@ import { dislike, fetchSuccess, like } from "../Redux/videoSlice.js";
 import { subscription } from "../Redux/userSlice.js";
 import { format } from "timeago.js";
 import Recomandation from "../components/Recomandation.jsx";
-import Base_Url from "../helper.js"
 
 const Container = styled.div`
   display: flex;
@@ -132,10 +131,10 @@ const Video = () => {
     try{
         //  console.log('useeffect run')
 
-         const videoRes= await axios.get(`https://youtube-bac.onrender.com/api/video/find/${path}`);
+         const videoRes= await axios.get(`/video/find/${path}`);
         //  console.log('videoRes data fatch',videoRes)
 
-        const channelRes= await axios.get(`https://youtube-bac.onrender.com/api/users/find/${videoRes.data.userId}`);
+        const channelRes= await axios.get(`/users/find/${videoRes.data.userId}`);
         //  console.log('channelRes data fatch',channelRes)
 
          setChannel(channelRes.data)
@@ -156,19 +155,19 @@ if (!currentVideo) {
 }
 
 const handleLike=async()=>{
-  console.log(Base_Url)
-await axios.put(`${Base_Url}/users/like/${currentVideo._id}`)
+await axios.put(`/users/like/${currentVideo._id}`)
 dispatch(like(currentUser._id))
 }
 const handleDislike=async()=>{
-  await axios.put(`https://youtube-bac.onrender.com/api/users/dislike/${currentVideo._id}`)
+  await axios.put(`/users/dislike/${currentVideo._id}`)
   dispatch(dislike(currentUser._id))
+  // console.log(res)
 }
 
 const handleSub = async()=>{
-  currentUser.subscribedUsers.includes(channel._id)?
-  await axios.put(`https://youtube-bac.onrender.com/api/users/unsub/${channel._id}`):
-  await axios.put(`https://youtube-bac.onrender.com/api/users/sub/${channel._id}`);
+  currentUser.subscribedUsers.includes(channel._id)? 
+  await axios.put(`/users/unsub/${channel._id}`):
+  await axios.put(`/users/sub/${channel._id}`);
   dispatch(subscription(channel._id))
 }
   return (
@@ -179,6 +178,7 @@ const handleSub = async()=>{
         {console.log(currentVideo.videoUrl)}
 
         </VideoWrapper>
+        {/* {confirm.log(currentVideo.url)} */}
         <Title>{currentVideo.title}</Title>
         <Details>
           <Info>{currentVideo.views} views • {format(currentVideo.createdAt)}</Info>
