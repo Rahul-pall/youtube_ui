@@ -41,7 +41,7 @@ const [channel,setChannel]=useState({});
 
 useEffect(()=>{
   const fetchComments=async ()=>{
-    const res=await axios.get(`/users/find/${comment.userId}`);
+    const res=await axios.get(`/api/users/find/${comment.userId}`);
     setChannel(res.data)
   };
   fetchComments();

@@ -136,7 +136,7 @@ const navigate=useNavigate();
   const handleUpload = async (e) => {
               e.preventDefault();
               try {
-                const res = await axios.post(`/video`, { ...inputs, tags });
+                const res = await axios.post(`/api/video`, { ...inputs, tags });
                 console.log(res)
                 setOpen(false);
                 if (res.status === 200) {
