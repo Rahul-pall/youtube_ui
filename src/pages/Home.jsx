@@ -8,6 +8,15 @@ const Container = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   min-height:100vh;
+  ${'' /* border:2px solid red; */}
+  width:100%;
+  gap:20px;
+
+  @media (min-width:769px) and (max-width: 1024px) {
+   width:120%;
+   position:relative;
+   right:50px;
+  }
 `;
 
 const Home = ({type}) => {
@@ -16,7 +25,7 @@ const Home = ({type}) => {
 
   useEffect(()=>{
      const fetchVideo=async ()=>{
-      const res = await axios.get(`/api/video/${type}`)
+      const res = await axios.get(`/video/${type}`)
       setVideos(res.data)
     }
     fetchVideo()

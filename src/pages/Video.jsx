@@ -20,6 +20,13 @@ import Base_Url from "../helper.js"
 const Container = styled.div`
   display: flex;
   gap: 24px;
+  ${'' /* border:2px solid red; */}
+  position:relative;
+  left:-50px;
+
+  @media (max-width: 450px) {
+   width:100%;
+  }
 `;
 
 const Content = styled.div`
@@ -37,8 +44,10 @@ const Title = styled.h1`
 
 const Details = styled.div`
   display: flex;
+  flex-wrap:wrap;
   align-items: center;
   justify-content: space-between;
+  gap:5px;
 `;
 
 const Info = styled.span`
@@ -132,10 +141,10 @@ const Video = () => {
     try{
         //  console.log('useeffect run')
 
-         const videoRes= await axios.get(`/api/video/find/${path}`);
+         const videoRes= await axios.get(`/video/find/${path}`);
         //  console.log('videoRes data fatch',videoRes)
 
-        const channelRes= await axios.get(`/api/users/find/${videoRes.data.userId}`);
+        const channelRes= await axios.get(`/users/find/${videoRes.data.userId}`);
         //  console.log('channelRes data fatch',channelRes)
 
          setChannel(channelRes.data)
@@ -156,18 +165,18 @@ if (!currentVideo) {
 }
 
 const handleLike=async()=>{
-await axios.put(`/api/users/like/${currentVideo._id}`)
+await axios.put(`/users/like/${currentVideo._id}`)
 dispatch(like(currentUser._id))
 }
 const handleDislike=async()=>{
-  await axios.put(`/api/users/dislike/${currentVideo._id}`)
+  await axios.put(`/users/dislike/${currentVideo._id}`)
   dispatch(dislike(currentUser._id))
 }
 
 const handleSub = async()=>{
   currentUser.subscribedUsers.includes(channel._id)?
-  await axios.put(`/api/users/unsub/${channel._id}`):
-  await axios.put(`/api/users/sub/${channel._id}`);
+  await axios.put(`/users/unsub/${channel._id}`):
+  await axios.put(`/users/sub/${channel._id}`);
   dispatch(subscription(channel._id))
 }
   return (

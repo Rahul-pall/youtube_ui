@@ -5,11 +5,29 @@ import {format} from "timeago.js";
 import axios from "axios"
 
 const Container = styled.div`
-  width: ${(props) => props.type !== "sm" && "360px"};
+  ${'' /* width: ${(props) => props.type !== "sm" && "360px"}; */}
+   width: 320px;
   margin-bottom: ${(props) => (props.type === "sm" ? "10px" : "45px")};
   cursor: pointer;
   display: ${(props) => props.type === "sm" && "flex"};
   gap: 10px;
+
+  @media (max-width: 450px) {
+  width:280px;
+  margin:0px;
+  ${'' /* border:2px solid red; */}
+  position:relative;
+  right:50px;
+  z-index:1;
+  }
+
+  @media (min-width:451px) and (max-width: 768px) {
+  width:340px;
+  }
+
+  @media (min-width:769px) and (max-width: 1024px) {
+  width:200px;
+  }
 `;
 
 const Image = styled.img`
@@ -58,7 +76,7 @@ const Card = ({ type,video }) => {
 
   useEffect(()=>{
      const fetchChannel=async ()=>{
-      const res = await axios.get(`/api/users/find/${video.userId}`)
+      const res = await axios.get(`/users/find/${video.userId}`)
       setChannel(res.data)
      }
      fetchChannel()

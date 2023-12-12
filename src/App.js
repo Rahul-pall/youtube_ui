@@ -15,7 +15,10 @@ const Container = styled.div`
 
 const Main = styled.div`
   flex: 7;
+  justify-content:center;
   background-color: ${({ theme }) => theme.bg};
+  ${'' /* border:2px solid red; */}
+  width:100%;
 `;
 const Wrapper = styled.div`
   padding: 22px 96px;

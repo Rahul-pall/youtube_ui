@@ -1,0 +1,6 @@
+
+[[redirects]]
+from="/*"
+  to = "https://youtube-bac.onrender.com/api/:splat"
+status=200
+

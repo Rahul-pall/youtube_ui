@@ -17,6 +17,14 @@ const Container = styled.div`
   justify-content: center;
   align-item: center;
   padding: 50px;
+
+  @media (max-width: 450px) {
+    z-index:9999;
+    width:100%;
+    height:100%;
+    position:fixed;
+    padding-top:100px;
+}
 `;
 const Wrapper = styled.div`
   width: 37.5rem;
@@ -136,7 +144,7 @@ const navigate=useNavigate();
   const handleUpload = async (e) => {
               e.preventDefault();
               try {
-                const res = await axios.post(`/api/video`, { ...inputs, tags });
+                const res = await axios.post(`/video`, { ...inputs, tags });
                 console.log(res)
                 setOpen(false);
                 if (res.status === 200) {

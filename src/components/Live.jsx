@@ -14,6 +14,7 @@ const Container = styled.div`
   justify-content: center;
   align-item: center;
   padding: 50px;
+  z-index:111;
 `;
 const Wrapper = styled.div`
   margin-top: 50px;

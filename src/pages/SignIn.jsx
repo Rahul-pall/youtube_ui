@@ -15,6 +15,11 @@ const Container = styled.div`
   justify-content: center;
   height: calc(100vh - 56px);
   color: ${({ theme }) => theme.text};
+
+  @media (min-width:451px) and (max-width: 768px) {
+  position:relative;
+  bottom:130px;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -83,7 +88,7 @@ const handleLogin=async(e)=>{
    e.preventDefault();
    dispatch(loginStart())
    try{
-  const res= await axios.post("/api/auth/signin",{name,password,email});
+  const res= await axios.post("/auth/signin",{name,password,email});
    const login=  dispatch(loginSuccess(res.data))
    if(login){
      alert('successfully login')
@@ -101,7 +106,7 @@ const submit= async(e)=>{
   e.preventDefault();
   try{
     if(name && email && password ){
-      var response=await axios.post(`/api/auth/signup`,{name,email,password})
+      var response=await axios.post(`/auth/signup`,{name,email,password})
       alert("you have registered successfully")
     }
    console.log(response.data)

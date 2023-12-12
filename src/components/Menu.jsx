@@ -23,19 +23,62 @@ import { useSelector } from "react-redux";
 const Container = styled.div`
   flex: 1;
   background-color: ${({ theme }) => theme.bgLighter};
-  height:100vh;
+  
   color: ${({ theme }) => theme.text};
   font-size: 14px;
   position: sticky;
   top: 0;
+
+
+  @media (max-width: 450px) {
+   position:absolute;
+   background:transparent;
+  z-index:999;
+  display:flex;
+  width:100%;
+  z-index:999;
+  }
+
+  @media (min-width:451px) and (max-width: 768px) {
+  position:sticky;
+  top:0px;
+  left:0px;
+  height:100vh;
+  width:fit-content;
+  }
+  @media (min-width:769px) and (max-width: 1024px) {
+  position:sticky;
+  top:0px;
+  left:0px;
+  height:100vh;
+  width:fit-content;
+  }
 `;
 const Wrapper = styled.div`
   padding: 18px 26px;
   height:100vh;
-  position:sticky;
+  position:relative;
   bottom:0px;
   overflow-x:hidden;
   overflow:auto;
+  background-color: ${({ theme }) => theme.bgLighter};
+
+  @media (max-width: 450px) {
+    position:fixed;
+    bottom:0px;
+    display:flex;
+    height:60px;
+    bottom:0px;
+    z-index:9999;
+    overflow:hidden;
+   background-color: ${({ theme }) => theme.bgLighter};
+   width:100%;
+   gap:30px;
+  }
+
+  @media (min-width:451px) and (max-width: 768px) {
+  gap:30px;
+  }
 `;
 const Logo = styled.div`
   display: flex;
@@ -44,6 +87,10 @@ const Logo = styled.div`
   font-weight: bold;
   margin-bottom: 25px;
   color: ${({ theme }) => theme.text};
+
+  @media (max-width: 450px) {
+   display:none;
+  }
 `;
 
 const Img = styled.img`
@@ -60,14 +107,58 @@ const Item = styled.div`
   &:hover {
     background-color: ${({ theme }) => theme.soft};
   }
+
+  @media (max-width: 450px) {
+   display:flex;
+   flex-direction:column;
+  }
+
+  @media (min-width:451px) and (max-width: 768px) {
+  display:flex;
+  ${'' /* flex-direction:column; */}
+  }
+`;
+const Items = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+  padding: 7.5px 0px;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.soft};
+  }
+  @media (max-width: 450px) {
+   display:none;
+  }
+
+  @media (min-width:451px) and (max-width: 768px) {
+  
+  }
 `;
 
 const Hr = styled.hr`
   margin: 15px 0px;
   border: 0.5px solid ${({ theme }) => theme.soft};
+
+  @media(max-width: 450px) {
+  display:none;
+ 
+  }
 `;
 
-const Login = styled.div``;
+const Login = styled.div`
+ @media (max-width: 450px) {
+   display:none;
+  }
+
+  @media (min-width:451px) and (max-width: 768px) {
+  display:block;
+  padding-bottom:15px;
+  display:flex;
+  flex-direction:column;
+  }
+`;
 const Button = styled.button`
   padding: 5px 15px;
   background-color: transparent;
@@ -80,6 +171,11 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   gap: 5px;
+
+  @media (max-width: 450px) {
+  display:none;
+  
+  }
 `;
 
 const Title = styled.h2`
@@ -87,51 +183,76 @@ const Title = styled.h2`
   font-weight: 500;
   color: #aaaaaa;
   margin-bottom: 20px;
+
+  @media (max-width: 450px) {
+   display:none;
+  }
+
 `;
+const Div=styled.div`
+width:fit-content;
+`
 
 const Menu = ({ darkMode, setDarkMode }) => {
   const {currentUser} = useSelector((state)=>state.user);
 
   const [live,setLive]=useState(false)
+
+  const [show,notShow]=useState("none")
   return (
     <>
     <Container>
       <Wrapper>
-        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+      <Div>
+      <Link to="/" style={{           textDecoration: "none", color: "inherit" }}>
           <Logo>
             <Img src={LamaTube} />
             YouTube
           </Logo>
         </Link>
-        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-        <Item id="change_color">
-          <HomeIcon />
+      </Div>
+
+        <Div>
+        <Link className="link" to="/" style={{ textDecoration: "none", color: "inherit" }}>
+        <Item>
+          <HomeIcon/>
           Home
         </Item>
         </Link>
-        <Link to="trends" style={{textDecoration:"none",color:"inherit"}}>
+        </Div>
+        
+
+        <Div>
+        <Link className="link" to="trends" style={{textDecoration:"none",color:"inherit"}}>
         <Item>
           <ExploreOutlinedIcon />
           Explore
         </Item>
         </Link>
+        </Div>
 
-        <Link to="subscriptions" style={{textDecoration:"none",color:"inherit"}}>
-        <Item>
+        
+        <Div>
+        <Link className="link" to="subscriptions" style={{textDecoration:"none",color:"inherit"}}>
+        <Items>
           <SubscriptionsOutlinedIcon />
           Subscriptions
-        </Item>
+        </Items>
         </Link>
-        <Hr />
-        <Item style={{color:"gray"}}>
+        </Div>
+        
+        {/* <Hr /> */}
+        {/* <Item style={{color:"gray"}}>
           <VideoLibraryOutlinedIcon />
           Library
         </Item>
         <Item style={{color:"gray"}}>
           <HistoryOutlinedIcon />
           History
-        </Item>
+        </Item> */}
         <Hr />
+
+        <Div>
         {
           !currentUser &&
         <>
@@ -144,10 +265,13 @@ const Menu = ({ darkMode, setDarkMode }) => {
             </Button>
           </Link>
         </Login>
-        <Hr />
+        {/* <Hr /> */}
         </>}
+        </Div>
+
+        
         <Title>BEST OF YOUTUBE</Title>
-        <Item style={{color:"gray"}}>
+        {/* <Item style={{color:"gray"}}>
           <LibraryMusicOutlinedIcon />
           Music
         </Item>
@@ -166,13 +290,18 @@ const Menu = ({ darkMode, setDarkMode }) => {
         <Item style={{color:"gray"}}>
           <ArticleOutlinedIcon />
           News
-        </Item>
+        </Item> */}
+
+        <Div>
         <Item onClick={()=>setLive(true)}>
           <LiveTvOutlinedIcon />
           Live
         </Item>
+        </Div>
+
+        
         <Hr />
-        <Item style={{color:"gray"}}>
+        {/* <Item style={{color:"gray"}}>
           <SettingsOutlinedIcon />
           Settings
         </Item>
@@ -183,14 +312,14 @@ const Menu = ({ darkMode, setDarkMode }) => {
         <Item style={{color:"gray"}}>
           <HelpOutlineOutlinedIcon />
           Help
-        </Item>
+        </Item> */}
+        <Div>
         <Item onClick={() => setDarkMode(!darkMode)}>
           <SettingsBrightnessOutlinedIcon />
           {darkMode ? "Light" : "Dark"} Mode
         </Item>
-        <Item >
-          
-        </Item>
+        </Div>
+        
       </Wrapper>
     </Container>
     {live && <Live setLive={setLive}/>}

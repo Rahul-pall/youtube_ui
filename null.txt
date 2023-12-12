@@ -11,3 +11,9 @@
 from="/*"
 to="/index.html"
 status=200
+
+
+ @media (max-width: 1024px) {
+   border:2px solid red;
+   width:85%
+  }
